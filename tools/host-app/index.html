@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hostile Host App</title>
+  <style>
+    /* Deliberately aggressive host styles to prove the shadow DOM isolation. */
+    * { color: red !important; font-family: "Comic Sans MS", cursive !important; box-sizing: content-box; }
+    body { background: #ffe; margin: 0; padding: 20px; font-size: 22px; line-height: 2; letter-spacing: 3px; }
+    div, span, pre, button, textarea { border: 3px dashed magenta !important; }
+    button { background: yellow; }
+  </style>
+</head>
+<body>
+  <h1>Hostile Host App</h1>
+  <p>This page has ugly global CSS, global keyboard shortcuts, and re-renders its body every few seconds.</p>
+  <p>Ctrl+K / Ctrl+P / Ctrl+S / F5 are captured by the host. Key events seen: <span id="keys">0</span>. Re-renders: <span id="renders">0</span></p>
+  <p><button id="stop">Stop re-rendering</button></p>
+  <script>
+    let keys = 0, renders = 0, rerender = true;
+    window.addEventListener('keydown', (e) => {
+      keys++;
+      document.getElementById('keys').textContent = keys;
+      if ((e.ctrlKey && ['k', 'p', 's'].includes(e.key.toLowerCase())) || e.key === 'F5') {
+        e.preventDefault();
+        alert('HOST captured ' + e.key);
+      }
+    });
+    document.getElementById('stop').onclick = () => { rerender = false; };
+    setInterval(() => {
+      if (!rerender) return;
+      renders++;
+      // Simulate a SPA router that replaces the whole body.
+      const html = document.body.innerHTML;
+      document.body.innerHTML = html;
+      document.getElementById('renders').textContent = renders;
+      document.getElementById('stop').onclick = () => { rerender = false; };
+    }, 5000);
+    window.addEventListener('beforeunload', (e) => { e.preventDefault(); e.returnValue = 'host says: unsaved!'; });
+  </script>
+</body>
+</html>

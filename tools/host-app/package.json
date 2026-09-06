@@ -1,0 +1,5 @@
+{
+  "name": "crazy-host-app",
+  "private": true,
+  "main": "main.cjs"
+}

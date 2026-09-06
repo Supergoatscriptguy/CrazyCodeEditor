@@ -1,0 +1,41 @@
+{
+  "name": "crazycodeeditor",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Paste into any Electron DevTools console: a portable Python IDE with a built-in interpreter.",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "build:watch": "node tools/build.mjs --watch",
+    "pack": "node tools/pack/build-pack.mjs",
+    "host": "node tools/host-app/run.mjs",
+    "host:inject": "node tools/host-app/run.mjs --inject",
+    "host:csp": "node tools/host-app/run.mjs --csp --inject",
+    "host:cspeval": "node tools/host-app/run.mjs --cspeval --inject",
+    "experiment:csp": "node tools/host-app/run-experiment.mjs csp-experiment.cjs && node tools/host-app/run-experiment.mjs csp-override-experiment.cjs",
+    "host:node": "node tools/host-app/run.mjs --node --inject",
+    "smoke": "node tools/host-app/run.mjs --smoke",
+    "smoke:all": "node tools/host-app/run.mjs --smoke && node tools/host-app/run.mjs --smoke --nodev && node tools/host-app/run.mjs --smoke --csp && node tools/host-app/run.mjs --smoke --cspheader && node tools/host-app/run.mjs --smoke --cspeval && node tools/host-app/run.mjs --smoke --node",
+    "release": "node tools/release.mjs",
+    "deploy": "node tools/deploy.mjs",
+    "attach": "node tools/attach.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@codemirror/autocomplete": "^6.18.0",
+    "@codemirror/commands": "^6.7.0",
+    "@codemirror/lang-python": "^6.1.6",
+    "@codemirror/language": "^6.10.0",
+    "@codemirror/lint": "^6.8.0",
+    "@codemirror/search": "^6.5.0",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.0",
+    "@lezer/highlight": "^1.2.0",
+    "electron": "^33.0.0",
+    "esbuild": "^0.24.0",
+    "pyodide": "0.27.7",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

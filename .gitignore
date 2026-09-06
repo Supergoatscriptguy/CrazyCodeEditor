@@ -1,0 +1,6 @@
+node_modules/
+dist/
+tools/pack/cache/
+tools/pack/wheels/
+*.log
+.DS_Store

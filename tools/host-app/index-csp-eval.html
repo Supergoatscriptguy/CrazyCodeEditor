@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; worker-src 'self'; connect-src 'self'">
+  <title>CSP host: eval allowed, workers blocked</title>
+</head>
+<body>
+  <h1>CSP host with 'unsafe-eval' but no blob: workers</h1>
+  <p>WebAssembly compiles, but blob workers are refused. Expect Python to run on the main thread.</p>
+</body>
+</html>
